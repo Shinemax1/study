@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <script type="text/javascript">
+        //获取罗盘旋转角度
+        window.addEventListener("deviceorientation",function(event){
+            //处理event.alpha,event.gamma,event.beta
+        },true);
+
+        //获取罗盘校准 
+        window.addEventListener("compassneedscalibration",function(event){
+            alert("您的罗盘需要校准");
+            event.preventDefault();
+        },true);
+
+        //获取重力加速度
+        window.addEventListener("devicemotion",function(event){
+            //x(y,z):设备在x(y,z)上的移动加速度值
+            event.acceleration
+            //考虑了重力加速度后设备在x(y,z)上
+            event.accelerationIncludingGravity
+            //Alpha,Beta,Gama:设备绕x(y,z)轴的旋转角度
+            event.rotationRate
+        },true);
+    </script>
+</body>
+</html>

@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="../方法/test1.js"></script>
+    <style>
+        div{
+            position: absolute;
+            width: 100px;
+            height: 100px;
+            background-color: red;
+        }
+    </style>
+</head>
+<body>
+    <div>
+    </div>
+    <script>
+        var sDiv = document.getElementsByTagName('div')[0];
+        drag(sDiv);
+        // var divX,divY;
+        // sDiv.onmousedown = function(e){
+            
+        //     var event = e || window.event;
+        //     divX = - parseInt(sDiv.offsetLeft) + e.pageX;
+        //     divY = - parseInt(sDiv.offsetTop) + e.pageY;
+
+        //     document.onmousemove = function(e){
+        //         var event = e||window.event;
+        //         sDiv.style.left = e.pageX - divX + 'px';
+        //         sDiv.style.top = e.pageY - divY + 'px';
+        //     }
+
+        //     document.onmouseup = function(){
+        //         document.onmousemove = null;
+        //     }
+        // }
+    </script>
+</body>
+</html>

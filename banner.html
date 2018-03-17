@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="../方法(js)/test1.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        ul {
+            list-style: none;
+        }
+
+        .banner {
+            position: relative;
+            width: 400px;
+            height: 200px;
+            overflow: hidden;
+            border: 2px solid black;
+        }
+
+        .banner>ul {
+            position: absolute;
+            width: 2000px;
+            height: 200px;
+        }
+
+        .banner>ul>li {
+            float: left;
+            width: 400px;
+            height: 200px;
+        }
+
+        .selector {
+            position: absolute;
+            left: 140px;
+            bottom: 30px;
+            width: 120px;
+            height: 20px;
+        }
+
+        .ss {
+            float: left;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background-color: white;
+            margin: 0 5px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="banner">
+        <ul>
+            <li style="background-color:red;"></li>
+            <li style="background-color:green;"></li>
+            <li style="background-color:blue;"></li>
+            <li style="background-color:pink;"></li>
+            <li style="background-color:red;"></li>
+        </ul>
+        <div>
+            <ul class="selector">
+                <li class="ss" style="background-color:black;"></li>
+                <li class="ss"></li>
+                <li class="ss"></li>
+                <li class="ss"></li>
+            </ul>
+        </div>
+
+
+    </div>
+    <script>
+        var ull = document.getElementsByTagName("ul")[0];
+        var selector = document.getElementsByClassName("selector")[0];
+        var i = 0;
+        ull.style.left = "0px";
+        var time = 0;
+        var time1;
+        var speed = 3;
+        document.addEventListener('visibilitychange', function () {
+            if (document.hidden) {
+                clearInterval(time1);
+            } else {
+                time1 = setInterval(function () {
+                    i++;
+                    for (var m = 0; m < selector.children.length; m++) {
+                        selector.children[m].style.backgroundColor = "#fff";
+                    }
+                    if (i == 4) {
+                        selector.children[0].style.backgroundColor = "#000";
+                    } else {
+                        selector.children[i].style.backgroundColor = "#000";
+                    }
+                    a();
+                }, 2500);
+            }
+        })
+
+        time1 = setInterval(function () {
+            i++;
+            for (var m = 0; m < selector.children.length; m++) {
+                selector.children[m].style.backgroundColor = "#fff";
+            }
+            if (i == 4) {
+                selector.children[0].style.backgroundColor = "#000";
+            } else {
+                selector.children[i].style.backgroundColor = "#000";
+            }
+            a();
+        }, 2500);
+
+        function a() {
+            time = setInterval(function () {
+                speed += speed / 20;
+                if (parseInt(getStyle(ull, 'left')) - speed < -400 * i) {
+                    ull.style.left = -400 * i + 'px';
+                    clearInterval(time);
+                    speed = 3;
+                    if (i == 4) {
+                        ull.style.left = "0px";
+                        i = 0;
+                    }
+                } else {
+                    ull.style.left = parseInt(getStyle(ull, 'left')) - speed + 'px';
+                }
+
+            }, 10);
+        }
+    </script>
+</body>
+
+</html>

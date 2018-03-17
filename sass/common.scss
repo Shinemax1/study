@@ -1,0 +1,397 @@
+@charset "utf-8";
+//清楚标签默认样式;
+@mixin label(){
+    /* 清楚标签默认样式  */
+    html {margin: 0; padding: 0; border: 0;_background-image:url(n1othing.txt)}
+    body, div, span, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, code, del, dfn, em, img, q, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, caption, tbody, tfoot, thead, article, aside, dialog, figure, footer, header, hgroup, nav, section { margin: 0; padding: 0; border: 0; font-size: 100%; vertical-align: baseline; }
+    ol, ul, li { list-style: none; }
+    body {line-height: 1.5; background: white; font-family: 'Microsoft Yahei', Arial, Helvetica, sans-serif; font-size: 12px; color: #333;}
+    table,tr, th, td { border-collapse: collapse; margin: 0; padding: 0;  font-size: 100%; vertical-align: baseline;}
+    caption, th, td { text-align: left; font-weight: normal; float: none !important; }
+    table, th, td, select, img, input,object{ vertical-align: middle;}
+    :focus { outline: 0;}
+    input,select{margin:0;}
+    a { color: #005EA7; text-decoration: none; }
+    a:hover { text-decoration:underline; }
+    p,a,td{word-wrap:break-word;word-break:break-all;}
+    img { border: none;vertical-align:top; }
+    textarea{ resize:none;border:1px solid #ccc;}
+    textarea:hover{border-color:#ccc;}
+    input[type="text"],input[type="button"]{-webkit-appearance: none;border-radius: 0;font-family:'Microsoft Yahei','黑体', Arial, Helvetica, sans-serif;}
+    input[type="text"]{border:solid 1px #ccc; border-radius:0;}
+    dfn {font-style: normal;font-family: Arial;}
+}
+
+//浮动;
+@mixin fl{
+    float:left;
+}
+@mixin fr{
+   float:right;
+}
+@mixin float($dir:left){
+    float:$dir;
+}
+//清除浮动;
+@mixin clear(){
+    *zoom:1;
+    &:after{
+        content: "";
+        display: block;
+        height: 0;
+        clear: both;
+        visibility: hidden;
+        overflow: hidden;
+    }
+}
+//清除滚动条出现的闪动;
+@mixin outer{
+   // margin-left: calc(100vw - 100%)!important;
+}
+///////////////////////////////////////////////
+// 循环初始字体大小:                         //  
+//  @end   : 结束字体大小(数字),必须输;      //
+//  @begin : 开始字体大小(数字),可以省略;    //
+//  @un    : 字体单位(字符串),可以省略;      //
+//  例子   : @include base-fonts(32);        //
+///////////////////////////////////////////////
+@mixin base-fonts( $end:100,$begin:12,$un:px ){
+
+    @if( TestNum( $begin,$end ) ){
+        @for $i from $begin through $end {
+            @if( $i%2 == 0 ){
+                .f-#{$i}{ font-size:$i+$un; }
+            }
+        }
+    }
+
+}
+
+/////////////////////////////////////////////////////////////
+// 循环初始默认样式:                                       //
+//  @name  : 样式前缀名,必须输;                            //
+//  @style : 设置样式,必须输;                              //
+//  @end   : 结束样式,必须输;                              //
+//  @begin : 开始样式,可以省略;                            //
+//  @mult  : 循环累加倍数,可以省略;                        //
+//  @un    : 字体单位(字符串),可以省略;                    // 
+//  例子   : @include base-styles(mb,margin-bottom,30,5);  //
+/////////////////////////////////////////////////////////////
+@mixin base-styles( $name,$style,$end:100,$begin:5,$mult:5,$un:px ){
+    
+    @if( TestNum( $begin,$end ) ){
+        @for $i from $begin through $end {
+            @if( $i%$mult == 0 ){
+                .#{$name}-#{$i}{ #{$style}:$i+$un; }
+            }
+            
+        }
+    }
+
+}
+
+//判断是否为数字;
+@function TestNum( $num1,$num2 ){
+    
+    @if ( not unitless($num1) or not unitless($num2) ){
+        @debug "其中数值有单位";
+        @return false;
+    }
+    @if ( type-of($num1) == number and type-of($num1) == number ) {
+        @return true;
+    }@else{
+        @debug "其中有值不数字";
+        @return false;
+    }
+}
+
+//一行显示。。。。;
+@mixin ellipsis{
+    white-space:nowrap;
+    text-overflow:ellipsis;
+    overflow:hidden;
+}
+// 强制折行;
+@mixin break-word{
+    word-break:break-all; /*支持IE，chrome，FF不支持*/
+　　word-wrap:break-word; /*支持IE，chrome，FF*/
+}
+//设置字体;
+@mixin f($size:12,$un:px){font-size:$size+$un; }
+//设置字体;
+@mixin fa($family:'Microsoft Yahei'){ font-family:$family,'宋体','黑体';}
+@mixin tal{ text-align: left; }
+@mixin tar{ text-align: right; }
+@mixin tac{ text-align: center; }
+@mixin text-align( $dir:left ){text-align: $dir;}
+@mixin over{overflow:hidden; }
+@mixin ofv{overflow:visible !important;}
+@mixin hide{ display:none;  }
+@mixin block{ display:block; }
+@mixin abs{ position: absolute; }
+@mixin rel{ position: relative; }
+@mixin cur{ cursor: pointer; }
+@mixin def{ cursor:default;}
+
+//css3过渡;
+@mixin tran($name:all,$time:2s){
+    -webkit-transition : $name $time;  /* Safari 和 Chrome */
+       -moz-transition : $name $time;  /* Firefox 4 */
+        -ms-transition : $name $time;  /* IE */
+         -o-transition : $name $time;  /* Opera */
+            transition : $name $time;
+}
+
+//css3;
+@mixin css3( $style,$frames ){
+    -webkit-#{$style} : $frames;  /* Safari 和 Chrome */
+       -moz-#{$style} : $frames;  /* Firefox 4 */
+         -o-#{$style} : $frames;  /* Opera */
+            #{$style} : $frames;
+}
+
+//透明;
+@mixin opa($num:0.8){
+    opacity : $num;
+    filter  : alpha(opacity=$num*100);
+}
+
+//css3圆角;
+@mixin border-radius($radius: 5px) {
+  -webkit-border-radius : $radius;  /* Safari 和 Chrome */
+     -moz-border-radius : $radius;  /* Firefox 4 */
+      -ms-border-radius : $radius;  /* IE */
+       -o-border-radius : $radius;  /* Opera */
+          border-radius : $radius;
+}
+
+//改变默认选中颜色
+@mixin selection( $bg:#00F,$color:#fff,$obj:0 ){
+    
+    @if( type-of($obj) == number ){
+
+        ::selection {
+            background:$bg; 
+            color:$color;
+        }
+        ::-moz-selection {
+            background:$bg; 
+            color:$color;
+        }
+        ::-webkit-selection {
+            background:$bg; 
+            color:$color;
+        }
+        ::-ms-selection {
+            background:$bg; 
+            color:$color;
+        }
+        ::-o-selection {
+            background:$bg; 
+            color:$color;
+        }
+        
+    }@else{
+
+        .#{$obj}::selection {
+            background:$bg; 
+            color:$color;
+        }
+        .#{$obj}::-moz-selection {
+            background:$bg; 
+            color:$color;
+        }
+        .#{$obj}::-webkit-selection {
+            background:$bg; 
+            color:$color;
+        }
+        .#{$obj}::-ms-selection {
+            background:$bg; 
+            color:$color;
+        }
+        .#{$obj}::-o-selection {
+            background:$bg; 
+            color:$color;
+        }
+        
+    }
+}
+
+///////////////////////////////////////////////////////////////////////////
+// css3动画,只能写在调用页面,配合.css3( @style,@frames )使用;            //
+// 例子 :                                                                //
+//  @include keyframes(animation-name) {                                 //               
+//      0% {                                                             //
+//         #{$browser}transform: translate3d(100%, 0, 0);                //
+//      }                                                                //
+//      100% {                                                           //
+//          #{$browser}transform: translate3d(0%, 0, 0);                 //
+//      }                                                                //
+//   }                                                                   //  
+//   .className{ @include css3(animation,animation-name 5s infinite); }  //
+///////////////////////////////////////////////////////////////////////////
+$browser: null;
+@mixin keyframes($animationName) {
+    @-webkit-keyframes #{$animationName} {
+        $browser: '-webkit-' !global;
+        @content;
+    }
+    @-moz-keyframes #{$animationName} {
+        $browser: '-moz-' !global;
+        @content;
+    }
+    @-ms-keyframes #{$animationName} {
+        $browser: '-ms-' !global;
+        @content;
+    }
+    @-o-keyframes #{$animationName} {
+        $browser: '-o-' !global;
+        @content;
+    }
+    @keyframes #{$animationName} {
+        $browser: '' !global;
+        @content;
+    }
+} 
+
+///////////////////////////////////////////////////////////////////////////
+// css3 滚动条;                                                          //
+// 例子 :                                                                //
+//  @include scrollbar(scrollbar-track){                                 //
+//    #{$browser}box-shadow: inset 0 0 6px rgba(0,0,0,0.3);              //
+//    background-color: #F5F5F5;                                         //
+//  };                                                                   //
+//  @include scrollbar(scrollbar){                                       //
+//    width: 12px;                                                       //
+//  };                                                                   //
+//  @include scrollbar(scrollbar-thumb){                                 //
+//    #{$browser}border-radius: 10px;                                    //
+//    #{$browser}box-shadow: inset 0 0 6px rgba(0,0,0,.3);               //
+//    background-color: #fbd0c9;                                         //
+//  };                                                                   //
+///////////////////////////////////////////////////////////////////////////
+@mixin scrollbar($style){
+    ::-webkit-#{$style}{
+        $browser: '-webkit-' !global;
+        @content;
+    }
+    ::-moz-#{$style}{
+        $browser: '-moz-' !global;
+        @content;
+    }
+    ::-ms-#{$style}{
+        $browser: '-ms-' !global;
+        @content;
+    }
+    ::-o-#{$style}{
+        $browser: '-o-' !global;
+        @content;
+    }
+    ::#{$style}{
+        $browser: '' !global;
+        @content;
+    }
+}
+
+
+//打包默认样式;
+@mixin base($content:950,$unit:px,$orange:#f60,$yellow:#fff000,$blue:#5fb3d2,$red:#ff546a,$gray:#ccc,$disabled:#ccc,$bor_color:#ccc){
+     @include label();
+    /* 默认浮动 */
+    .fl{
+        @include fl;
+    }
+    .fr{
+        @include fr;
+    }
+    .clear{
+        @include clear;
+    }
+    /* 显示隐藏 */
+    .hide{ 
+        @include hide;
+    }
+    .show{ 
+        @include block;
+    }
+    /* 文本方向 */
+    .tal{
+        @include tal;
+    }
+    .tar{ 
+        @include tar;
+    }
+    .tac{ 
+        @include tac;
+    }
+    /* 截取 */
+    .over{
+        @include over;
+    }
+    .ofv{
+        @include ofv;
+    }
+    /* 定位 */
+    .abs{
+        @include abs;
+    }
+    .rel{ 
+        @include rel;
+    }
+    /* 鼠标手势 */
+    .cursor{ 
+        @include cur;
+    }
+    .def{
+        @include def;
+    }
+    /* 。。。。 */
+    .ellipsis{
+        @include ellipsis;
+    }
+    /* 强制折行 */
+    .break-word{
+        @include break-word;
+    }
+    /* 默认颜色 */
+    .colr-red{color: $red;}
+    .colr-blue{color: $blue;}
+    .colr-gray{color: $gray;}
+    .colr-yellow{color: $yellow;}
+    .colr-org{color: $orange;}
+    /* 默认背景颜色 */
+    .bg-red{ background-color: $red;}
+    .bg-blue{background-color: $blue;}
+    .bg-gray{background-color: $gray;}
+    .bg-yellow{background-color: $yellow;}
+    .bg-org{background-color: $orange;}
+    /* 默认置灰 */
+    .disabled{ background-color:$disabled; }
+    /* 默认字体 */
+    @include base-fonts(32,$un:$unit);
+    /* margin  padding */
+    .mt0 { margin-top: 0 !important; }
+    @include base-styles(mt,margin-top,30,5,$un:$unit);
+    .mb0 { margin-bottom: 0 !important; }
+    @include base-styles(mb,margin-bottom,30,5,$un:$unit);
+    .ml0 { margin-left: 0 !important; }
+    @include base-styles(ml,margin-left,30,5,$un:$unit);
+    .mr0 { margin-right: 0 !important; }
+    @include base-styles(mr,margin-right,30,5,$un:$unit);
+    /* 高度 */
+    @include base-styles(blk,height,50,5,$un:$unit);
+    /* 边框 */
+    .bor_t{ border-top:solid 1px $bor_color;}
+    .bor_l{ border-left:solid 1px $bor_color;}
+    .bor_r{ border-right:solid 1px $bor_color;}
+    .bor_b{ border-bottom:solid 1px $bor_color;}
+    .bor_t0{ border-top:none!important;}
+    .bor_l0{ border-left:none!important;}
+    .bor_r0{ border-right:none!important;}
+    .bor_b0{ border-bottom:none!important;}
+    .bor_das{ border:1px dashed $bor_color;}
+    .bor_dot{ border:1px dotted $bor_color;}
+    .border{ border:1px solid $bor_color;}
+    /* box */
+    .content{ width: $content+$unit; margin:0 auto; }
+}

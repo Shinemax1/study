@@ -1,0 +1,51 @@
+@charset "UTF-8"; //解决中文注释问题;
+//引入底层库;
+@import "common.scss";
+//默认初始化;
+@include base($content:1000);
+
+/*方法*/
+
+.f12 {
+    @include f(12);
+}
+
+
+/*css3圆角*/
+
+.border-radius {
+    @include border-radius(5px);
+}
+
+
+/*css3过渡*/
+
+.transitions {
+    @include tran();
+}
+
+
+/*css3旋转*/
+
+.rotate60 {
+    @include css3(transform, rotate(60deg));
+}
+
+
+/*旋转keyframes*/
+
+@include keyframes(rotates) {
+    0% {
+        #{$browser}transform: rotate(0deg);
+    }
+    100% {
+        #{$browser}transform: rotate(360deg);
+    }
+}
+
+
+/*引用旋转keyframes*/
+
+.keyframes-rotates {
+    @include css3(animation, starts 8s linear infinite .3s);
+}

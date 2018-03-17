@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="./jquery-3.3.1.min.js"></script>
+</head>
+
+<body>
+    <script>
+        var p1 = $.ajax({
+            url: 'json.txt',
+            dataType: 'json'
+        });
+        var p2 = $.ajax({
+            url: 'arr.txt',
+            dataType: 'json'
+        });
+        Promise.all([
+            p1, p2
+        ]).then(result => {
+                let [json, arr] = result;
+                //document.write(json+'<br/>'+arr);
+                console.log(json + '-' + arr);
+            },
+            err => {
+                console.log(err);
+            });
+    </script>
+</body>
+
+</html>

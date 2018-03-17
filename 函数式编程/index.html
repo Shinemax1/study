@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        //面向过程，想到哪写到哪
+        //面向对象，共有的属性和方法封装到一个类里
+        //面向切面编程，统计一个函数执行时间
+        test.before(function(){
+            var s;
+        }).after(function(){
+            var e;
+            e - s;
+        })
+        //函数式编程，提纯无关于业务的纯函数，函数套函数产生神奇效果
+        //函数套函数让函数更强大，OOP
+        //javascript函数是一等公民
+        //es3 es5 es6
+        //对于函数式编程来说，同样的输入一定会有同样的输出，不会因为外部状态的改变而改变
+        //纯函数有记忆（同样的输入一定会有同样的输出），不跟外界有任何关系，抽象代码方便单元测试
+        //函数式编程新建一个独立的js，通过代码的提纯新建共有的common.js=》libs本项目
+        //函数里的柯里化，函数接受一堆参数->返回一个函数，继续接受参数能够处理逻辑,让纯函数内部的变量更加灵活，不依赖外部的任何变量，他可以记住参数，相当于对参数的一种缓存
+        //可以缓存参数
+        //函数组合可以解决柯里化函数所最后生成的一种洋葱样代码
+        //组合函数相当于把一页页的洋葱粘起来了
+        //一目了然和系统提供的API保持一致，不要去生成转瞬即逝的代码
+        //声明式的代码越来越受到欢迎，只要一条条的指令，程序就知道该怎么做，不需要一步一步告诉他怎么做
+        //惰性函数就是比较懒的函数，下次不在求值了
+        //函数传给函数，让函数具有更复杂的功能
+        var checkage = min => (age => age > min);
+    </script>
+</body>
+</html>

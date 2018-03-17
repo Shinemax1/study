@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        .centerView {
+            width: 150px;
+        }
+
+        .localPreview {
+            position: relative;
+            width: 150px;
+            height: 150px;
+            line-height: 150px;
+            text-align: center;
+            background: #ccc;
+        }
+
+        .localPreview img {
+            position: relative;
+            vertical-align: middle;
+        }
+
+        .inputParent {
+            position: relative;
+            display: block;
+            margin: 10px auto;
+            cursor: pointer;
+            width: 80px;
+            height: 30px;
+            line-height: 30px;
+            background: #27bb6e;
+            text-align: center;
+            font-size: 12px;
+            color: #fff;
+        }
+
+        .inputParent i {
+            font-style: normal;
+            color: #fff;
+        }
+
+        .inputParent #filePath {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            filter: alpha(opacity=0);
+            opacity: 0;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="centerView">
+        <div class="localPreview">
+            <img id="showViewImg" />
+        </div>
+        <a class="inputParent" href="javascript:void(0)">
+            <i>点击上传文件</i>
+            <input type="file" id="filePath" onchange="getCurrFile()" />
+        </a>
+    </div>
+    <script>
+        function DealPic(width, height) {
+            this.oriWidth = width;
+            this.oriHeight = height;
+        }
+
+        DealPic.prototype.getObjectURL = function (fileObj) {
+            var result = {};
+            var file;
+            if (fileObj.files) {
+                file = fileObj.files[0];
+                if (window.createObjectURL != undefined) { // basic
+                    result.url = window.createObjectURL(file);
+                } else if (window.URL != undefined) { // mozilla(firefox)
+                    result.url = window.URL.createObjectURL(file);
+                } else if (window.webkitURL != undefined) { // webkit or chrome
+                    result.url = window.webkitURL.createObjectURL(file);
+                }
+            } else {
+                var hiddenAlphaImageWidth, hiddenAlphaImageHeight;
+                var hiddenAlphaImage = document.createElement('img');
+                document.body.appendChild(hiddenAlphaImage);
+                fileObj.select();
+                fileObj.blur();
+                result.url = document.selection.createRange().text;
+                hiddenAlphaImage.style.filter =
+                    "progid:DXImageTransform.Microsoft.AlphaImageLoader(sizingMethod=image)";
+                hiddenAlphaImage.filters.item("DXImageTransform.Microsoft.AlphaImageLoader").src = result.url;
+                //但是当滤镜使用的图片超过10M大小，使用上面的代码页面会报错，说hiddenAlphaImage出现未指明的错误；
+                //解决办法就是使用下面的注释的方式，注释上面的两行代码
+                //使用下面代码滤镜图片超过10M后本地预览不了，通过这个滤镜得到的图片的宽高始终是28*30
+                //hiddenAlphaImage.style.filter = "progid:DXImageTransform.Microsoft.AlphaImageLoader(sizingMethod='image',src=\"" + result.url + "\")"; 
+
+                result.width = hiddenAlphaImage.offsetWidth;
+                result.height = hiddenAlphaImage.offsetHeight;
+                if (hiddenAlphaImage.parentNode) {
+                    hiddenAlphaImage.parentNode.removeChild(hiddenAlphaImage);
+                }
+            }
+            return result;
+        }
+
+        DealPic.prototype.getPicResult = function (targetWidth, targetHeight, callback) {
+            if (this.oriWidth / this.oriHeight > targetWidth / targetHeight) {
+                var th = this.oriHeight;
+                var tw = this.oriHeight / targetHeight * targetWidth;
+            } else {
+                var tw = this.oriWidth;
+                var th = this.oriWidth / targetWidth * targetHeight;
+            }
+            if (callback) {
+                callback(tw, th);
+            }
+        }
+
+        function getCurrFile() {
+            var fileObj = document.getElementById('filePath');
+            var showImgObj = document.getElementById('showViewImg');
+            var newPicObj = new DealPic(150, 150);
+            var resultFileObj = newPicObj.getObjectURL(fileObj);
+            if (fileObj.files) {
+                var newImg = new Image();
+                newImg.onload = function () {
+                    newPicObj.getPicResult(newImg.width, newImg.height, function (tw, th) {
+                        showImgObj.style.width = tw + 'px';
+                        showImgObj.style.height = th + 'px';
+                    });
+                }
+                newImg.src = resultFileObj.url;
+                showImgObj.setAttribute('src', resultFileObj.url);
+            } else {
+                showImgObj.style.filter = "progid:DXImageTransform.Microsoft.AlphaImageLoader(sizingMethod=scale)";
+                showImgObj.filters.item("DXImageTransform.Microsoft.AlphaImageLoader").src = resultFileObj.url;
+                //IE9低版本不设置图片src会显示裂图，所以设置一个透明图片或者base64的透明图片
+                showImgObj.setAttribute('src', './images/transparent.png');
+                //showImgObj.src = 'data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==';
+                newPicObj.getPicResult(resultFileObj.width, resultFileObj.height, function (resw, resh) {
+                    showImgObj.style.width = resw + 'px';
+                    showImgObj.style.height = resh + 'px';
+                });
+            }
+        }
+    </script>
+</body>
+
+</html>

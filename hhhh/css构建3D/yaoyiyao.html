@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        var speed = 30;
+        var x = y = z = lastX = lastY = lastZ = 0;
+        window.addEventListener("devicemotion",deviceMotionHandler,true);
+        function deviceMotionHandler(event){
+            var acceration = event.accelerationIncludingGravity;
+            x = acceration.x;
+            y = acceration.y;
+            z = acceration.z;
+            if(Math.abs(x - lastX) > speed||Math.abs(y - lastY) > speed||Math.abs(z - lastZ) > speed){
+                alert("摇一摇");
+            }
+        }   
+    </script>
+</body>
+</html>

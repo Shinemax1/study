@@ -1,0 +1,17 @@
+.rounded-corners(@radius:5px){
+    border-radius: @radius;
+    -webkit-border-radius: @radius;
+    -moz-webkit-radius: @radius;
+}
+.header{
+    .rounded-corners;
+}
+.footer{
+    .rounded-corners(10px);
+}
+div{
+    width: 100px;
+    height: 100px;
+    background-color: red;
+    margin: 5px;
+}

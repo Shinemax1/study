@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        #box div{
+            position: absolute;
+            width: 160px;
+            height: 160px;
+            border: 3px solid #000;
+            background: pink;
+            font-size: 130px;
+            opacity: 0.4;
+            text-align: center;
+        }
+        #box{
+            -webkit-animation-name: animation;
+            /**动画以低速开始和结束。**/
+            -webkit-animation-timing-function: ease-in-out;
+            /* 	规定动画应该无限次播放。 */
+            -webkit-animation-iteration-count: infinite;
+            /* 规定完成动画所花费的时间。默认值是 0，意味着没有动画效果。 */
+            -webkit-animation-duration: 3s;
+            margin: 80;
+            /* 子元素将保留其 3D 位置。 */
+            -webkit-transform-style: preserve-3D;
+            /* transform-origin 属性允许您改变被转换元素的位置。
+                2D 转换元素能够改变元素 x 和 y 轴。3D 转换元素还能改变其 Z 轴。 */
+            -webkit-transform-origin: 80px 80px 0;
+        }
+        #box .one{
+            -webkit-transform:translateZ(80px); 
+        }
+        #box .two{
+            -webkit-transform: rotateX(-90deg) translateZ(80px);
+        }
+        #box .three{
+            -webkit-transform: rotateX(90deg) translateZ(80px);
+        }
+        #box .four{
+            -webkit-transform: rotateY(180deg) rotateZ(90deg) translateZ(80px);
+        }
+        #box .five{
+            -webkit-transform: rotateY(-90deg) rotateZ(90deg) translateZ(80px);
+        }
+        #box .six{
+            -webkit-transform: rotateY(90deg) translateZ(80px);
+        }
+        @-webkit-keyframes animation{
+            16%{-webkit-transform: rotateY(-90deg);}
+            33%{-webkit-transform: rotateY(-90deg) rotateZ(135deg);}
+            50%{-webkit-transform: rotateY(225deg) rotateZ(135deg);}
+            66%{-webkit-transform: rotateY(135deg) rotateX(135deg);}
+            83%{-webkit-transform: rotateX(135deg);}
+        }
+    </style>
+</head>
+<body>
+    <h1 align=center>CSS 3D基础</h1>
+    <div class="view" style="width:160px;height:160px;margin:80px auto 0;">
+        <div id="box">
+            <div class="one">A</div>
+            <div class="two">B</div>
+            <div class="three">C</div>
+            <div class="four">D</div>
+            <div class="five">E</div>
+            <div class="six">F</div>
+        </div>
+    </div>
+    <script>
+        document.addEventListener("touchstart",function(event){
+            event.preventDefault();
+        },false);
+    </script>
+</body>
+</html>
