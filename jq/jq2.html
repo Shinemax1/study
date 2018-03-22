@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        //短路表达式
+        //x&&y
+        // 首先在运算符比之前会自动把x转换为boolean值， 不管它是什么类型。
+        // 若x为false， 不管y为什么， 都将返回false；
+        // 若x为true， 则返回y， 若y可以是基本类型， 也可以是引用类型， 也可以是一串表达式；
+
+        // x || y：
+        // 同理先把x转换成boolean值。
+        // 与 && 正好相反， 若x为true， 不管y为什么， 都将返回true；
+        // 若x为false， 则返回y；
+        var jQuery = {
+            ss : "111",
+            ssF : this.ss.trim,
+            trim: function (data) {
+                return ssF(data);
+            }
+        }
+    </script>
+</body>
+
+</html>

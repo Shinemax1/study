@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <div></div>
+    <script>
+        //1.new 第一步构造函数，返回了init的函数，原型连上挂载了一个init函数，没有执行，被搁置
+        //new返回的init函数是已执行的
+        (function (window, undefined) {
+            var jQuery = function (selector, context) {
+                //默默的做了一个new jQuery()
+                return new jQuery.fn.init(selector, context);
+            }
+            jQuery.fn = jQuery.prototype = {
+                init: function (selector, context) {
+
+                }
+            }
+            //jQuery.fn.init = jQuery
+        })(window)
+        //为了把jQuery原型链上的方法全部给jQuery.fn
+
+
+        //链式调用
+        var s = {
+            a: function () {
+                console.log('first');
+                return this;
+            },
+            b: function () {
+                console.log('second');
+                return this;
+            },
+            c: function () {
+                console.log('third');
+                return this;
+            }
+        }
+
+        //live
+        function live(targetObject, type, fn) { //元素类型，事件类型，执行函数
+            document.onclick = function (event) {
+                var e = event ? event : window.event;
+                //解决浏览器兼容，IE，FF
+                var target = e.srcElement || e.target;
+                if (e.type == type && target.tagName.toLocaleLowerCase() == targetObject) {
+                    alert(3);
+                    fn(); //如果元素类型和事件类型相匹配执行方法
+                }
+            }
+        }
+
+        live('td', 'click', function () {
+            alert('1');
+        })
+
+        //$('.test').val('test')
+        function addMethod(obj, name, fn) {
+            var old = obj[name];
+            obj[name] = function () {
+                //这里使用了闭包，保存了上一个old的函数和fn函数
+                if (fn.length == arguments.length) {
+                    return fn.apply(this, arguments);
+                } else {
+                    return old.apply(this, arguments);
+                }
+            }
+        }
+        var person = {
+            people: ["aa","bb","cc"]
+        }
+        var find0 = function(){
+            return this.people;
+        }
+        var find1 = function(name){
+            for(var i = 0;i < this.people.length;i++){
+                if(this.people[i] === name){
+                    return name;
+                }
+            }
+        }
+        var find2 = function(aa,bb){
+            return 3;
+        }
+        addMethod(person,"find",find0);
+        addMethod(person,"find",find1);
+        addMethod(person,"find",find2);
+        console.log(person.find());
+    </script>
+</body>
+
+</html>
