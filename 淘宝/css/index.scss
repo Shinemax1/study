@@ -387,4 +387,44 @@ body {
             }
         }  
     }
+    //中间内容块
+    .screen-box-wrap{
+        width: 1195px;
+        margin: 0 auto;
+        border: 1px solid #eee;
+        height: 632px;
+        .main{
+            width: 890px;
+            height: 632px;
+            border: 1px solid #000;
+            float: left;
+            .main-inner{
+                width: 720px;
+                height: 520px;
+                display: inline-block;
+                vertical-align: top;
+                border: 1px solid #000;
+                .inner-left{
+
+                }
+            }
+            .con-middle{
+                vertical-align: top;
+                display: inline-block;
+                width: 160px;
+                border: 1px solid #000;
+                height: 522px;
+            }
+            .main-bottom{
+                width: 890px;
+                //height: ;
+            }
+        }
+        .col-right{
+            width: 290px;
+            height: 632px;
+            border: 1px solid #000;
+            float: left;
+        }
+    }
 }

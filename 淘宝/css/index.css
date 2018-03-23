@@ -406,3 +406,44 @@ body {
 .wrapper .screen-nav-wrap .screen-nav-con ul li a {
   color: #fff;
 }
+
+.wrapper .screen-box-wrap {
+  width: 1195px;
+  margin: 0 auto;
+  border: 1px solid #eee;
+  height: 632px;
+}
+
+.wrapper .screen-box-wrap .main {
+  width: 890px;
+  height: 632px;
+  border: 1px solid #000;
+  float: left;
+}
+
+.wrapper .screen-box-wrap .main .main-inner {
+  width: 720px;
+  height: 520px;
+  display: inline-block;
+  vertical-align: top;
+  border: 1px solid #000;
+}
+
+.wrapper .screen-box-wrap .main .con-middle {
+  vertical-align: top;
+  display: inline-block;
+  width: 160px;
+  border: 1px solid #000;
+  height: 522px;
+}
+
+.wrapper .screen-box-wrap .main .main-bottom {
+  width: 890px;
+}
+
+.wrapper .screen-box-wrap .col-right {
+  width: 290px;
+  height: 632px;
+  border: 1px solid #000;
+  float: left;
+}
