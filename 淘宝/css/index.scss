@@ -391,7 +391,7 @@ body {
         border: 1px solid #eee;
         height: 632px;
         .main {
-            width: 890px;
+            // width: 890px;
             height: 632px;
             float: left;
             .main-inner {
@@ -511,19 +511,23 @@ body {
             }
             .con-middle {
                 vertical-align: top;
-                display: inline-block;
-                width: 160px;
-                height: 522px;
-                margin-top: 10px;
+                display: none;
                 h5 {
                     color: #a1a1a1;
                     font-size: 12px;
                     line-height: 20px;
                 }
+                @media screen and (min-width: 1100px) {
+                    display: inline-block;
+                    width: 160px;
+                    height: 510px;
+                    margin-top: 10px;                 
+                }
             }
             .main-bottom {
-                width: 888px;
+                width: 100%;
                 height: 100px;
+                margin-top: 10px;
                 .bottom-con {
                     height: 73px;
                     position: relative; //margin-top: 10px;
@@ -534,7 +538,6 @@ body {
                     }
                     .tbttCon {
                         height: 73px;
-                        width: 675px;
                         position: absolute;
                         top: 14px;
                         left: 200px;
@@ -654,37 +657,36 @@ body {
                     height: 40px;
                     margin-top: 8px;
                     text-align: center;
-                    a{
+                    a {
                         display: inline-block;
                         width: 75px;
                         height: 25px;
                         text-align: center;
                         color: #fff;
-                        background: linear-gradient(to right,#ff5000 0,#ff6f60 100%);
+                        background: linear-gradient(to right, #ff5000 0, #ff6f60 100%);
                         line-height: 25px;
                         font-size: 14px;
                         font-weight: 700;
                         border-radius: 4px;
                         margin-right: 7px;
                     }
-                    .login{
+                    .login {
                         width: 92px;
                     }
                 }
             }
-            .message{
+            .message {
                 width: 290px;
                 height: 26px;
                 background-color: #ffe4db;
-                a{
+                a {
                     color: #ff5000;
                     line-height: 26px;
                     position: relative;
                     padding-left: 82px;
                     font-size: 12px;
-                    
                 }
-                span{
+                span {
                     margin-left: 20px;
                     vertical-align: middle;
                     display: inline-block;
@@ -692,151 +694,151 @@ body {
                     border-left: 5px solid #ff5000;
                 }
             }
-            .notice{
+            .notice {
                 height: 98px;
                 width: 290px;
                 padding-top: 10px;
-                li{
+                li {
                     float: left;
                 }
-                .title{
+                .title {
                     //width: 290px;
                     height: 24px;
                     margin-top: 4px;
                     padding: 0 8px;
-                    li{
+                    li {
                         width: 32px;
                         line-height: 20px;
                         margin: 0 11px;
                         text-align: center;
-                        a{
+                        a {
                             color: #3c3c3c;
                             font-size: 14px;
                         }
-                        .select{
+                        .select {
                             font-weight: 700;
                             border-bottom: 2px solid #f40;
                         }
                     }
                 }
-                .con{
+                .con {
                     overflow: hidden;
                     margin-top: 10px;
-                    li{
+                    li {
                         width: 130px;
                         height: 25px;
                         line-height: 25px;
                         overflow: hidden;
                         padding-right: 7px;
                         padding-left: 8px;
-                        a{
+                        a {
                             color: #3c3c3c;
                             font-size: 12px;
-                            &:hover{
-                               color: #ff5000;
+                            &:hover {
+                                color: #ff5000;
                             }
                         }
-                        .select{
+                        .select {
                             color: #f40;
                         }
                     }
                 }
             }
-            .module{
+            .module {
                 height: 232px;
                 width: 290px;
                 border-bottom: 1px solid #f4f4f4;
-                li{
+                li {
                     float: left;
                     width: 71px;
                     height: 76px;
                     border-left: 1px solid #f4f4f4;
                     border-top: 1px solid #f4f4f4;
-                    a{
+                    a {
                         display: block;
                         text-align: center;
-                        span{
+                        span {
                             display: inline-block;
                             width: 24px;
                             height: 24px;
                             margin-top: 10px;
                             background: url('../img/pics.png') 100% 100% no-repeat;
                         }
-                        p{
+                        p {
                             color: #3c3c3c;
                             font-size: 12px;
                             line-height: 24px;
-                            &:hover{
+                            &:hover {
                                 color: #ff5000;
                             }
                         }
-                        .pic1{
+                        .pic1 {
                             background-position: 0 0;
                         }
-                        .pic2{
+                        .pic2 {
                             background-position: 0 -85px;
                         }
-                        .pic3{
+                        .pic3 {
                             background-position: 0 -44px;
                         }
-                        .pic4{
+                        .pic4 {
                             background-position: 0 -132px;
                         }
-                        .pic5{
+                        .pic5 {
                             background-position: 0 -176px;
                         }
-                        .pic6{
+                        .pic6 {
                             background-position: 0 -220px;
                         }
-                        .pic7{
+                        .pic7 {
                             background-position: 0 -264px;
                         }
-                        .pic8{
+                        .pic8 {
                             background-position: 0 -308px;
                         }
-                        .pic9{
+                        .pic9 {
                             background-position: 0 -352px;
                         }
-                        .pic10{
+                        .pic10 {
                             background-position: 0 -396px;
                         }
-                        .pic11{
+                        .pic11 {
                             background-position: 0 -440px;
                         }
-                        .pic12{
+                        .pic12 {
                             background-position: 0 -484px;
                         }
                     }
                 }
             }
-            .app{
+            .app {
                 height: 100px;
                 width: 290px;
-                h3{
+                h3 {
                     font-size: 14px;
                     height: 30px;
                     line-height: 30px;
                     padding-left: 14px;
                     position: relative;
-                    a{
+                    a {
                         font-size: 12px;
                         position: absolute;
                         right: 10px;
                         color: #eeeeee;
                     }
                 }
-                ul{
+                ul {
                     height: 84px;
                     padding-left: 23px;
-                    li{
+                    li {
                         float: left;
                         width: 32px;
                         height: 32px;
                         margin-right: 21px;
                         margin-bottom: 8px;
-                        img{
+                        img {
                             width: 32px;
-                            height: 32px; 
+                            height: 32px;
                         }
                     }
                 }
