@@ -1,0 +1,8 @@
+.kk,
+.ll {
+    @if #{&} == ".kk" {
+        &:hover {
+            color: red;
+        }
+    }
+}
