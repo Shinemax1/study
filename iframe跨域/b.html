@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /> 
+    <title>jsonp的方式</title>
+</head>
+
+<body>
+    <textarea id="message">这是员工的密码！</textarea>
+    <br/>
+    <button id="test">看看领导在说什么</button>
+    <br/>
+    <script>
+        document.getElementById("test").onclick = function () {
+            alert(parent.document.getElementById("message").value);
+        }
+    </script>
+</body>
+
+</html>

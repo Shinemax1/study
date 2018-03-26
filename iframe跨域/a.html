@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /> 
+    <title>A</title>
+</head>
+
+<body>
+    <textarea id="message">这是高层的密码！</textarea>
+    <br/>
+    <button id="test">看看员工在说什么</button>
+    <br/>
+    <br/>
+    <br/> 员工们：
+    <br/>
+    <iframe src="b.html" width="500" height="300" id="iframe"></iframe>
+    <script>
+        document.getElementById("test").onclick = function () {　　　　
+            alert(document.getElementById("iframe").contentWindow.document.getElementById("message").value);　　
+        }
+    </script>
+</body>
+
+</html>
