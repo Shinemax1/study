@@ -1,0 +1,100 @@
+ CommonJS(同步，node.js)  
+    CommonJS是nodejs也就是服务器端广泛使用的模块化机制。 
+    该规范的主要内容是，模块必须通过module.exports 导出对外的变量或接口，通过 require() 来导入其他模块的输出到当前模块作用域中。
+
+    定义模块
+        在每个模块内部，module变量代表当前模块。它的exports属性是对外的接口，将模块的接口暴露出去。其他文件加载该模块，实际上就是读取module.exports变量。
+        var x = 5;
+        var addX = function (value) {
+        return value + x;
+        };
+        module.exports.x = x;
+        module.exports.addX = addX;
+
+    加载模块
+        require方法用于加载模块，后缀名默认为.js
+        var app = require('./app.js');
+
+    入口文件
+        一般都会有一个主文件（入口文件），在index.html中加载这个入口文件，然后在这个入口文件中加载其他文件。
+        可以通过在package.json中配置main字段来指定入口文件。
+
+    模块缓存
+        第一次加载某个模块时，Node会缓存该模块。以后再加载该模块，就直接从缓存取出该模块的module.exports属性。
+
+    加载机制
+        CommonJS模块的加载机制是，输入的是被输出的值的拷贝。也就是说，一旦输出一个值，模块内部的变化就影响不到这个值。
+
+AMD(异步，为浏览器设置)
+    AMD（异步模块定义）是为浏览器环境设计的，因为 CommonJS 模块系统是同步加载的，当前浏览器环境还没有准备好同步加载模块的条件。
+    requirejs即为遵循AMD规范的模块化工具。 
+    RequireJS的基本思想是，通过define方法，将代码定义为模块；通过require方法，实现代码的模块加载。
+
+    定义模块
+        define方法用于定义模块，RequireJS要求每个模块放在一个单独的文件里。
+        按照是否依赖其他模块，可以分成两种情况讨论。第一种情况是定义独立模块，即所定义的模块不依赖其他模块；第二种情况是定义非独立模块，即所定义的模块依赖于其他模块。
+
+    独立模块
+        define(function(){
+            ……
+            return {
+                //返回接口
+            }
+        })    
+        define定义的模块可以返回任何值，不限于对象。
+
+    非独立模块
+        define(['module1','module2'],function(m1,m2){
+            ……
+            return {
+                //返回接口
+            }
+        })
+        要定义的模块依赖于module1和module2，那么第一个参数就是依赖的模块的数组。 
+        第二个参数是一个函数，仅当依赖的模块都加载成功后才会被调用。此函数的参数m1，m2与前面数组中的依赖模块一一对应。
+        此模块必须返回一个对象，供其他模块调用。
+
+    加载模块
+        同样使用require（）方法来加载模块，但由于是异步的，因此使用回调函数的形式。
+        require(['foo','bar'],function(foo,bar){
+            ……
+        })
+        上面方法表示加载foo和bar两个模块，当这两个模块都加载成功后，执行一个回调函数。该回调函数就用来完成具体的任务。
+
+require方法也可以用在define方法内部。
+define(function(require){
+    var otherModule = require('otherModule');
+})
+
+require方法允许添加第三个参数，即错误处理的回调函数。
+require(
+    [ "backbone" ], 
+    function ( Backbone ) {
+        return Backbone.View.extend({ /* ... */ });
+    }, 
+    function (err) {
+        // ...
+    }
+);
+
+    配置
+require.config({
+    paths: {
+        "backbone": "vendor/backbone",
+        "underscore": "vendor/underscore"
+    },
+    shim: {
+        "backbone": {
+            deps: [ "underscore" ],
+            exports: "Backbone"
+        },
+        "underscore": {
+            exports: "_"
+        }
+    }
+});
+
+    使用
+        在主页面index.html中先通过script标签引入require.min.js。 
+        再通过script标签引入一个入口文件main.js，此入口文件一般用于配置（require.config），以及引入其他模块。
+

@@ -1,0 +1,29 @@
+二进制和八进制表示法
+    ES6 提供了二进制和八进制数值的新的写法，分别用前缀0b（或0B）和0o（或0O）表示。
+Number.isFinite(), Number.isNaN()
+    Number.isFinite()用来检查一个数值是否为有限的（finite），即不是Infinity。注意，如果参数类型不是数值，Number.isFinite一律返回false。
+    Number.isNaN()用来检查一个值是否为NaN。注意，如果参数类型不是数值，Number.isNaN一律返回false。
+    Number.isFinite()对于非数值一律返回false, Number.isNaN()只有对于NaN才返回true，非NaN一律返回false。
+Number.parseInt(), Number.parseFloat()
+    ES6 将全局方法parseInt()和parseFloat()，移植到Number对象上面，行为完全保持不变。
+Number.isInteger()
+    Number.isInteger()用来判断一个数值是否为整数。
+Number.EPSILON
+    Number.EPSILON可以用来设置“能够接受的误差范围”。比如，误差范围设为 2 的-50 次方（即Number.EPSILON * Math.pow(2, 2)），即如果两个浮点数的差小于这个值，我们就认为这两个浮点数相等。
+    function withinErrorMargin (left, right) {
+        return Math.abs(left - right) < Number.EPSILON * Math.pow(2, 2);
+    }
+安全整数和 Number.isSafeInteger()
+    JavaScript 能够准确表示的整数范围在-2^53到2^53之间（不含两个端点），超过这个范围，无法精确表示这个值。
+    ES6 引入了Number.MAX_SAFE_INTEGER和Number.MIN_SAFE_INTEGER这两个常量，用来表示这个范围的上下限。
+Math 对象的扩展
+    Math.trunc()返回去除小数点后的数
+    Math.sign()判断正数还是负数
+    Math.cbrt()立方根
+    Math.clz32()JavaScript 的整数使用 32 位二进制形式表示，Math.clz32方法返回一个数的 32 位无符号整数形式有多少个前导 0。
+    Math.imul()方法返回两个数以 32 位带符号整数形式相乘的结果，返回的也是一个 32 位的带符号整数。
+    Math.fround()方法返回一个数的32位单精度浮点数形式。
+    Math.hypot()方法返回所有参数的平方和的平方根
+    
+指数运算符
+ ** 

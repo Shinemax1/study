@@ -1,0 +1,14 @@
+pending（进行中）、fulfilled（已成功）和rejected（已失败）。
+这是因为立即 resolved 的 Promise 是在本轮事件循环的末尾执行，总是晚于本轮循环的同步任务.
+新建就会立即执行
+Promise 的状态一旦改变，就永久保持该状态，不会再变了。
+Promise 内部的错误不会影响到 Promise 外部的代码，通俗的说法就是“Promise 会吃掉错误”。
+resolve参数是另一个promise对象，会把状态给别人
+注意，如果作为参数的 Promise 实例，自己定义了catch方法，那么它一旦被rejected，并不会触发Promise.all()的catch方法
+
+setTimeout(fn, 0)在下一轮“事件循环”开始时执行，Promise.resolve()在本轮“事件循环”结束时执行，console.log('one')则是立即执行，因此最先输出。
+
+1.Promise.resolve方法会将这个参数转为 Promise 对象
+2.Promise.reject()方法的参数，会原封不动地作为reject的理由，变成后续方法的参数。这一点与Promise.resolve方法不一致。
+
+Promise.try()

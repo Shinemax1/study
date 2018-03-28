@@ -1,0 +1,23 @@
+简介
+    子类必须在constructor方法中调用super方法，否则新建实例时会报错。这是因为子类没有自己的this对象，而是继承父类的this对象，然后对其进行加工。如果不调用super方法，子类就得不到this对象。
+    另一个需要注意的地方是，在子类的构造函数中，只有调用super之后，才可以使用this关键字，否则会报错。这是因为子类实例的构建，是基于对父类实例加工，只有super方法才能返回父类实例。
+Object.getPrototypeOf()
+    Object.getPrototypeOf方法可以用来从子类上获取父类。
+super 关键字
+    super虽然代表了父类A的构造函数，但是返回的是子类B的实例，即super内部的this指的是B，因此super()在这里相当于A.prototype.constructor.call(this)。
+    第二种情况，super作为对象时，在普通方法中，指向父类的原型对象；在静态方法中，指向父类。
+    ES6 规定，通过super调用父类的方法时，方法内部的this指向当前的子类实例。
+类的 prototype 属性和__proto__属性
+    （1）子类的__proto__属性，表示构造函数的继承，总是指向父类。
+    （2）子类prototype属性的__proto__属性，表示方法的继承，总是指向父类的prototype属性。
+    class A {
+    }
+
+    class B extends A {
+    }
+
+    B.__proto__ === A // true
+    B.prototype.__proto__ === A.prototype // true
+原生构造函数的继承
+Mixin 模式的实现
+    Mixin 指的是多个对象合成一个新的对象，新对象具有各个组成成员的接口。它的最简单实现如下。

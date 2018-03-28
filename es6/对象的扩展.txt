@@ -1,0 +1,84 @@
+属性的简洁表示法
+属性名表达式
+方法的 name 属性
+Object.is()
+    ES6 提出“Same-value equality”（同值相等）算法，用来解决这个问题。Object.is就是部署这个算法的新方法。它用来比较两个值是否严格相等，与严格比较运算符（===）的行为基本一致。
+    不同之处只有两个：一是+0不等于-0，二是NaN等于自身。
+Object.assign()
+    Object.assign方法用于对象的合并，将源对象（source）的所有可枚举属性，复制到目标对象（target）。
+    注意，如果目标对象与源对象有同名属性，或多个源对象有同名属性，则后面的属性会覆盖前面的属性。
+    1.浅拷贝
+        Object.assign方法实行的是浅拷贝，而不是深拷贝。也就是说，如果源对象某个属性的值是对象，那么目标对象拷贝得到的是这个对象的引用。
+    2.同名属性的处理
+    3.数组处理
+    4.取值函数get的处理
+属性的可枚举性和遍历
+    对象的每个属性都有一个描述对象（Descriptor），用来控制该属性的行为。Object.getOwnPropertyDescriptor方法可以获取该属性的描述对象。
+    属性的遍历
+    ES6 一共有 5 种方法可以遍历对象的属性。
+
+    （1）for...in
+
+    for...in循环遍历对象自身的和继承的可枚举属性（不含 Symbol 属性）。
+
+    （2）Object.keys(obj)
+
+    Object.keys返回一个数组，包括对象自身的（不含继承的）所有可枚举属性（不含 Symbol 属性）的键名。
+
+    （3）Object.getOwnPropertyNames(obj)
+
+    Object.getOwnPropertyNames返回一个数组，包含对象自身的所有属性（不含 Symbol 属性，但是包括不可枚举属性）的键名。
+
+    （4）Object.getOwnPropertySymbols(obj)
+
+    Object.getOwnPropertySymbols返回一个数组，包含对象自身的所有 Symbol 属性的键名。
+
+    （5）Reflect.ownKeys(obj)
+
+    Reflect.ownKeys返回一个数组，包含对象自身的所有键名，不管键名是 Symbol 或字符串，也不管是否可枚举。
+
+    首先遍历所有数值键，按照数值升序排列。
+    其次遍历所有字符串键，按照加入时间升序排列。
+    最后遍历所有 Symbol 键，按照加入时间升序排列。
+
+
+Object.getOwnPropertyDescriptors()
+    前面说过，Object.getOwnPropertyDescriptor方法会返回某个对象属性的描述对象（descriptor），参数分别是要查找的对象和要检索的属性名。ES2017 引入了Object.getOwnPropertyDescriptors方法，返回指定对象所有自身属性（非继承属性）的描述对象。
+__proto__属性，Object.setPrototypeOf()，Object.getPrototypeOf()
+super 关键字
+    我们知道，this关键字总是指向函数所在的当前对象，ES6 又新增了另一个类似的关键字super，指向当前对象的原型对象。
+Object.keys()，Object.values()，Object.entries()
+    let {keys, values, entries} = Object;
+    let obj = { a: 1, b: 2, c: 3 };
+
+    for (let key of keys(obj)) {
+    console.log(key); // 'a', 'b', 'c'
+    }
+
+    for (let value of values(obj)) {
+    console.log(value); // 1, 2, 3
+    }
+
+    for (let [key, value] of entries(obj)) {
+    console.log([key, value]); // ['a', 1], ['b', 2], ['c', 3]
+    }
+    Object.values会过滤属性名为 Symbol 值的属性。
+对象的扩展运算符
+    拷贝
+        // 写法一
+    const clone1 = {
+    __proto__: Object.getPrototypeOf(obj),
+    ...obj
+    };
+
+    // 写法二
+    const clone2 = Object.assign(
+    Object.create(Object.getPrototypeOf(obj)),
+    obj
+    );
+
+    // 写法三
+    const clone3 = Object.create(
+    Object.getPrototypeOf(obj),
+    Object.getOwnPropertyDescriptors(obj)
+    )

@@ -1,0 +1,23 @@
+概述
+严格模式
+export 命令
+    export {}
+    export 直接定义变量
+    动态改变 setTimeout
+import 命令
+    大括号里面的变量名，必须与被导入模块（profile.js）对外接口的名称相同。
+    只读
+    import后面的from指定模块文件的位置，可以是相对路径，也可以是绝对路径，.js后缀可以省略。如果只是模块名，不带有路径，那么必须有配置文件，告诉 JavaScript 引擎该模块的位置。
+    import命令具有提升效果，会提升到整个模块的头部，首先执行。
+    import语句会执行所加载的模块，因此可以有下面的写法。（多次输入，只执行一次）
+    因为静态，所以最早形成的
+模块的整体加载
+export default 命令
+    使用了default就不会在import中使用{}
+    可以在default后加函数表达式，也可以加函数，相当于加函数表达式
+    export {d as default} 等同于 export default d
+export 与 import 的复合写法
+    export {q,w} from 'df';等同于 export {q,w}; import {q,w} from 'df';但是导入模块dw，不会被使用
+模块的继承
+跨模块常量
+import()
