@@ -1,0 +1,44 @@
+Arguments: 
+  /usr/local/Cellar/node/9.10.1/bin/node /usr/local/Cellar/yarn/1.5.1_1/libexec/bin/yarn.js
+
+PATH: 
+  /usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin
+
+Yarn version: 
+  1.5.1
+
+Node version: 
+  9.10.1
+
+Platform: 
+  darwin x64
+
+npm manifest: 
+  {
+    "name": "webpack_demo",
+    "version": "1.0.0",
+    "description": "",
+    "main": "index.js",
+    "scripts": {
+      "test": "echo \"Error: no test specified\" && exit 1",
+      "dev": "webpack-dev-server"
+    },
+    "author": "",
+    "license": "ISC",
+    "devDependencies": {
+      "css-loader": "^0.28.11",
+      "style-loader": "^0.20.3",
+      "webpack": "^3.6.0",
+      "webpack-cli": "^2.0.13",
+      "webpack-dev-server": "^2.8.2"
+    }
+  }
+
+yarn manifest: 
+  No manifest
+
+Lockfile: 
+  No lockfile
+
+Trace: 
+  Error: EINVAL: invalid argument, unlink '/Users/chenxufeng/Desktop/webpack_demo/node_modules/base/node_modules/define-property'
