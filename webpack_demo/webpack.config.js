@@ -97,7 +97,8 @@ module.exports = {
             //babel配置
             test: /\.(jsx|js)$/,
             use: [{
-                loader: 'babel-loader',
+                // cacheDirectory是用来缓存编译结果，下次编译加速
+                loader: 'babel-loader?cacheDirectory=true',
                 //有了.babelrc文件后不需要
                 // options: {
                 //     presets: ["es2015","react"]
@@ -159,7 +160,9 @@ module.exports = {
         host: 'localhost',
         //服务端压缩是否开启
         compress: true,
-        port: '1212'
+        port: '1212',
+        //当使用 HTML5 History API 时，任意的 404 响应都可能需要被替代为 index.html。
+        historyApiFallback: true
     },
     //watch模式，不用每次都build
     watchOptions: {
