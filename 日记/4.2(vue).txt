@@ -1,0 +1,338 @@
+原因是，Vue是异步执行dom更新的，一旦观察到数据变化，Vue就会开启一个队列，然后把在同一个事件循环 (event loop) 当中观察到数据变化的 watcher 推送进这个队列。如果这个watcher被触发多次，只会被推送到队列一次。这种缓冲行为可以有效的去掉重复数据造成的不必要的计算和DOm操作。而在下一个事件循环时，Vue会清空队列，并进行必要的DOM更新。
+当你设置 vm.someData = 'new value'，DOM 并不会马上更新，而是在异步队列被清除，也就是下一个事件循环开始时执行更新时才会进行必要的DOM更新。如果此时你想要根据更新的 DOM 状态去做某些事情，就会出现问题。。为了在数据变化之后等待 Vue 完成更新 DOM ，可以在数据变化之后立即使用 Vue.nextTick(callback) 。这样回调函数在 DOM 更新完成后就会调用。
+
+
+
+
+
+
+
+
+
+
+
+
+bind:function(){//被绑定
+     console.log('1 - bind');
+},
+inserted:function(){//绑定到节点
+      console.log('2 - inserted');
+},
+update:function(){//组件更新
+      console.log('3 - update');
+},
+componentUpdated:function(){//组件更新完成
+      console.log('4 - componentUpdated');
+},
+unbind:function(){//解绑
+      console.log('1 - bind');
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <script type="text/javascript" src="../assets/js/vue.js"></script>
+    <title>vue.extend-扩展实例构造器</title>
+</head>
+<body>
+    <h1>vue.extend-扩展实例构造器</h1>
+    <hr>
+    <author></author>
+ 
+    <script type="text/javascript">
+       var authorExtend = Vue.extend({
+           template:"<p><a :href='authorUrl'>{{authorName}}</a></p>",
+           data:function(){
+               return{
+                   authorName:'JSPang',
+                   authorUrl:'http://www.jspang.com'
+               }
+           }
+       });
+       new authorExtend().$mount('author');
+    </script>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+//构造器外向构造器内传值，因为vue不会自己改变数组，所以用set
+Vue.set(outData,'count',4);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <script type="text/javascript" src="../assets/js/vue.js"></script>
+    <title>component-4</title>
+</head>
+<body>
+    <h1>component-4</h1>
+    <hr>
+    <div id="app">
+       <component v-bind:is="who"></component>
+       <button @click="changeComponent">changeComponent</button>
+    </div>
+
+    <script type="text/javascript">
+        var componentA={
+            template:`<div style="color:red;">I'm componentA</div>`
+        }
+        var componentB={
+            template:`<div style="color:green;">I'm componentB</div>`
+        }
+        var componentC={
+            template:`<div style="color:pink;">I'm componentC</div>`
+        }
+       
+        var app=new Vue({
+            el:'#app',
+            data:{
+                who:'componentA'
+            },
+            components:{
+                "componentA":componentA,
+                "componentB":componentB,
+                "componentC":componentC,
+            },
+            methods:{
+                changeComponent:function(){
+                    if(this.who=='componentA'){
+                        this.who='componentB';
+                    }else if(this.who=='componentB'){
+                        this.who='componentC';
+                    }else{
+                        this.who='componentA';
+                    }
+                }
+            }
+        })
+    </script>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+//用Native来调用构造器内的函数	
+<p><btn @click.native="add(3)"></btn></p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//从执行的先后顺序来说，都是混入的先执行，然后构造器里的再执行，需要注意的是，这并不是方法的覆盖，而是被执行了两边。
+//当混入方法和构造器的方法重名时，混入的方法无法展现，也就是不起作用。
+<script type="text/javascript">
+        //额外临时加入时，用于显示日志
+        var addLog={
+            updated:function(){
+                console.log("数据放生变化,变化成"+this.num+".");
+            }
+        }
+        var app=new Vue({
+            el:'#app',
+            data:{
+                num:1
+            },
+            methods:{
+                add:function(){
+                    this.num++;
+                }
+            },
+            mixins:[addLog]//混入
+        })
+    </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//和mixin一样会被原来的方法顶替，但是不同的是mixin是数组，他是对象
+<script type="text/javascript">
+        var bbb={
+            created:function(){
+                console.log("我是被扩展出来的");
+            },
+            methods:{
+                add:function(){
+                    console.log('我是被扩展出来的方法！');
+                }
+            }
+        };
+        var app=new Vue({
+            el:'#app',
+            data:{
+                message:'hello Vue!'
+            },
+            methods:{
+                add:function(){
+                    console.log('我是原生方法');
+                }
+            },
+            extends:bbb
+        })
+    </script>
+
+
+
+
+
+
+
+
+
+
+
+
+on、once、emit、off
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <script type="text/javascript" src="../assets/js/vue.js"></script>
+    <title>Slot content extend Demo</title>
+</head>
+<body>
+    <h1>Slot content extend Demo</h1>
+    <hr>
+    <div id="app">
+    <jspang>
+        <span slot="bolgUrl">{{jspangData.bolgUrl}}</span>    
+        <span slot="netName">{{jspangData.netName}}</span>    
+        <span slot="skill">{{jspangData.skill}}</span>    
+    </jspang>
+    </div>
+
+
+<template id="tmp">
+    <div>
+        <p>博客地址：<slot name="bolgUrl"></slot></p>
+        <p>网名：<slot name="netName"></slot></p>
+        <p>技术类型：<slot name="skill"></slot></p>
+        
+    </div>
+</template>
+
+    <script type="text/javascript">
+        var jspang={
+            template:'#tmp'
+        }
+
+        var app=new Vue({
+            el:'#app',
+            data:{
+               jspangData:{
+                   bolgUrl:'http://jspang.com',
+                   netName:'技术胖',
+                   skill:'Web前端'
+               }
+            },
+            components:{
+                "jspang":jspang
+            }
+        })
+    </script>
+</body>
+</html>
+
+
+
+transform-runtime
