@@ -1,0 +1,15 @@
+贡献一个更好记的空格形式 &emsp; 这个空格的宽度正好是1em。
+另外还有 &ensp; 这是0.5em的空格。 
+
+Webpack 4 --mode 可以直接压缩js
+
+
+vue，router.push中的params和query的区别
+params搭配name使用，query搭配path使用
+
+
+
+
+Number([]) = 0
+Number([1]) = 1
+Number([1,2]) = NaN

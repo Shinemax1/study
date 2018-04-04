@@ -1,0 +1,135 @@
+ <router-view ></router-view>
+ <router-view name="left" style="float:left;width:50%;background-color:#ccc;height:300px;"></router-view>
+ <router-view name="right" style="float:right;width:50%;background-color:#c0c;height:300px;"></router-view>
+
+
+
+import Vue from 'vue'
+import Router from 'vue-router'
+import Hello from '@/components/Hello'
+import Hi1 from '@/components/Hi1'
+import Hi2 from '@/components/Hi2'
+
+Vue.use(Router)
+
+export default new Router({
+  routes: [
+    {
+      path: '/',
+      components: {
+        default:Hello,
+        left:Hi1,
+        right:Hi2
+      }
+    },{
+      path: '/Hi',
+      components: {
+        default:Hello,
+        left:Hi2,
+        right:Hi1
+      }
+    }
+
+  ]
+})
+
+
+
+
+
+
+
+
+
+
+
+
+//<transition fade=“name”>
+.fade-enter {
+  opacity:0;
+}
+.fade-leave{
+  opacity:1;
+}
+.fade-enter-active{
+  transition:opacity .5s;
+}
+.fade-leave-active{
+  opacity:0;
+  transition:opacity .5s;
+}
+
+//过度模式mode <transition fade=“name” mode="out-in">
+in-out:新元素先进入过渡，完成之后当前元素过渡离开。
+out-in:当前元素先进行过渡离开，离开完成后新元素过渡进入。
+
+
+
+
+
+
+
+
+State状态值 mutation改变 action方法（异步）
+{commit}：直接把commit对象传递过来，可以让方法体逻辑和代码更清晰明了。
+
+
+
+
+
+
+
+
+
+Const exePlugins = store => {
+    store.subscribe((mutation, state) => {
+      if (mutation.type === 'router/ROUTE_CHANGED') {
+        // 由於 Vue-Router 會觸發 ROUTE_CHANGED
+        // 所以我們只在這個時候作一次，避免重複被觸發
+        store.dispatch('fetchUserData')
+      }
+    })
+  }
+new Vuex.Store({
+  Plugins:[exePlugins]
+})
+
+
+
+
+父子组件传值
+父：@dd=“ss” ss(){}
+子：@click=“dd” dd(){this.$emit("dd")}
+
+
+
+Vue-router Vue-resorce(请求) vuex(数据源) vue（视图）
+vuex-router-sync：可在 store 里可以读取 router 实例的属性了
+// entry.js
+import { sync } from 'vuex-router-sync';
+
+const router = xxx;
+const store = xxx;
+sync( store, router );
+
+const app = new Vue({
+  router,
+  store,
+}).$mount('#app');
+//store.js
+const mutations = {
+    [types.UPDATE]( state, { params } ){
+        // access route
+        console.log( state.route );
+    }
+};
+
+
+
+
+
+
+1、一开始通过生成observe对象，在全局的this对象中定义了Vue中的data中的属性，并添加get，set
+2、new compile()在elementFragment中对标签元素中的value值进行input值addlistener监听，将this中的data属性修改为e.target.value的值，然后new watcher()对象
+3、watcher的构造函数中会将dep.target引用为自己的this,然后调用自己原型上的update方法，用来告诉节点数据，在update方法中调用get方法，先在get中获取this中的data属性（这一步，会调用之前定义的对象属性的get方法，将dep.target保存在dep的数组中），在这里之后watcher的构造函数最后把dep.target改为null，以免下次在observe的get上再赋值，之后将上面取到的值交给node节点上。
+4、当用户改变数据，监听中将改变this中的data属性，将调用其上的set方法，set方法中会调用dep的notify方法，notify中会遍历其上面的数组并调用watcher的update方法，达到数据双向绑定
