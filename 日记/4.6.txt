@@ -1,0 +1,9 @@
+以前你可能需要用babel来将ES6的模块语法转换为AMD、CommonJS、UMD之类的模块化标准语法，但是现在webpack已经把这个事情做了，所以就不需要babel来做了，但是babel配置项中的modules默认值是commonjs，所以你需要将modules设置为false才行，不然就冲突了。
+["env", {
+      "modules": false,
+      "targets": {
+        "browsers": ["> 1%", "last 2 versions", "not ie <= 8"]
+      }
+}]
+
+Before-enter enter

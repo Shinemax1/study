@@ -9,9 +9,21 @@
 </template>
 <script>
 export default {
-  valiate({params}){
-    //校验只有数字才能进入
-    return /^\d+$/.test(params.id);
-  }
-}
+	validate({ params }) {
+		//校验只有数字才能进入
+		return /^\d+$/.test(params.id);
+	},
+	data() {
+		return {
+			title: this.$route.params.title,
+		};
+	},
+	head() {
+		return {
+      title: this.title,
+      //hid不一样，不会覆盖之前的meta
+			meta: [{ hid: 'description', name: 'description', content: 'this is shinemax' }],
+		};
+	},
+};
 </script>

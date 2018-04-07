@@ -82,10 +82,12 @@ State状态值 mutation改变 action方法（异步）
 
 
 Const exePlugins = store => {
+//注册监听器
     store.subscribe((mutation, state) => {
       if (mutation.type === 'router/ROUTE_CHANGED') {
         // 由於 Vue-Router 會觸發 ROUTE_CHANGED
         // 所以我們只在這個時候作一次，避免重複被觸發
+	// 这个其实是在store中触发改变它里面的值！更新state
         store.dispatch('fetchUserData')
       }
     })

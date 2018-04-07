@@ -1,5 +1,6 @@
 <template>
   <div>
+    <p>渣渣辉</p>
     <nuxt/>
   </div>
 </template>

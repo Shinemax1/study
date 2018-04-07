@@ -12,13 +12,13 @@ html {
     opacity: 0;
 }
 
-/* 但页面动画效果 */
-.test-enter-active,
-.test-leave-active {
-    transition: opacity .5s;
-}
+/* 单页面动画效果 */
+.test-enter-active, .test-leave-active {
+  transition: all 2s;
+  font-size:12px;
 
-.test-enter,
-.test-leave-active {
-    opacity: 0;
+}
+.test-enter, .test-leave-active {
+  opacity: 0;
+  font-size:40px;
 }
